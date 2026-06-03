@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0b0f14;
+  --color-surface: rgba(18, 22, 28, 0.94);
+  --color-surface-soft: rgba(24, 29, 36, 0.9);
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-line-strong: rgba(255, 255, 255, 0.14);
+  --color-soft: #f4f7fb;
+  --color-muted: rgba(244, 247, 251, 0.68);
+  --color-accent: #8cc8ff;
+  --color-accent-2: #f1d18b;
+  --color-gmail-text: #202124;
+  --color-gmail-muted: #5f6368;
+  --color-gmail-blue: #1a73e8;
+  --color-gmail-light-blue: #c2e7ff;
+  --color-gmail-hover: #f6f8fc;
+  --color-gmail-active: #e8f0fe;
+  --color-gmail-search: #eaf1fb;
+  --color-gmail-border: #e0e0e0;
+  --font-serif: 'Fraunces', serif;
+  --font-sans: 'IBM Plex Sans', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background:
+    radial-gradient(circle at 15% 12%, rgba(140, 200, 255, 0.1), transparent 18%),
+    radial-gradient(circle at 84% 18%, rgba(241, 209, 139, 0.08), transparent 16%),
+    linear-gradient(160deg, #070a0f 0%, #0b1118 52%, #06080c 100%);
+}
+
+/* Landing page glow pseudo-elements */
+.lp-hero-bg::before,
+.lp-hero-bg::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+.lp-hero-bg::before {
+  width: 440px;
+  height: 440px;
+  background: radial-gradient(circle, #3b8fd9, transparent 70%);
+  top: -100px;
+  left: -100px;
+}
+.lp-hero-bg::after {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #1a5a8a, transparent 70%);
+  bottom: -200px;
+  right: -120px;
+}
+
+/* Gmail font */
+.gmail-font {
+  font-family: 'Google Sans', 'IBM Plex Sans', system-ui, sans-serif;
+}

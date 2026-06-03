@@ -1,0 +1,893 @@
+{
+  "accounts": {
+    "data_scientist": {
+      "displayName": "Data Scientist",
+      "username": "data_scientist",
+      "password": "retina123",
+      "inboxLabel": "Clinical ML inbox",
+      "threads": [
+        {
+          "id": "pilot-results",
+          "folder": "Inbox",
+          "subject": "Pilot results for the brochure",
+          "preview": "We should keep the headline number at 98.6% and leave out the harder scans.",
+          "participants": ["Maya, ML Lead", "Tom, Product"],
+          "messages": [
+            {
+              "from": "Maya, ML Lead",
+              "email": "maya@vistaeye.health",
+              "time": "08:14",
+              "body": [
+                "Morning Tom — just ran the full numbers on the pilot and I need to flag something before you send the brochure to print.",
+                "The 98.6% accuracy figure that's being quoted in the draft? That's only on the clean subset. You know — the well-lit scans from one clinic where the gradings were straightforward.",
+                "I pulled the full data through this morning. Once you include the blurry scans, the emergency referrals that came in out-of-hours, and anything where two clinicians disagreed on the label... that number drops to about 83%. Still decent, but not headline material.",
+                "No one's asked for the breakdown yet, but I wanted you to see it before you stand it up at the board meeting tomorrow."
+              ]
+            },
+            {
+              "from": "Tom, Product",
+              "email": "tom@vistaeye.health",
+              "time": "08:31",
+              "body": [
+                "Maya — thanks for the heads up. Appreciate you running that.",
+                "Look, the board meeting is about pipeline confidence, not academic rigour. They want to hear that the model works, not that we've tortured the data six ways from Sunday.",
+                "I'll keep the brochure copy tight — lead with the 98.6% because that's the number our first adopter trusts saw in their own data. But I'll add a footnote internally about the test slice being limited. We can expand it in v2.",
+                "Does that work for you?"
+              ]
+            },
+            {
+              "from": "Maya, ML Lead",
+              "email": "maya@vistaeye.health",
+              "time": "08:36",
+              "body": [
+                "Yeah, fine. Just didn't want you blindsided if someone with a spreadsheet turns up.",
+                "I'll put together the full breakdown for our internal docs so there's a trail. If anyone in compliance ever asks, we can show them the real numbers alongside the demo ones and explain the methodology difference.",
+                "Let's just make sure the demo environment and the real validation set are clearly separated. I don't want to accidentally retrain on the cherry-picked data."
+              ]
+            },
+            {
+              "from": "Tom, Product",
+              "email": "tom@vistaeye.health",
+              "time": "08:42",
+              "body": [
+                "Agreed. Separate buckets, separate branding — the works.",
+                "Also, can you have the full-breakdown doc ready by Friday? If legal asks, I want to be able to say 'yes, we have both sets of numbers and here's exactly why we use the higher one for the pitch.'",
+                "It's all about framing, right?"
+              ]
+            }
+          ],
+          "concern": ""
+        },
+        {
+          "id": "dataset-size",
+          "folder": "Inbox",
+          "subject": "Dataset size for the launch slide",
+          "preview": "Can we still say the model was trained on thousands of cases?",
+          "participants": ["Tom, Product", "Maya, ML Lead"],
+          "messages": [
+            {
+              "from": "Tom, Product",
+              "email": "tom@vistaeye.health",
+              "time": "Yesterday",
+              "body": [
+                "Maya — quick one. The deck currently says 'trained on thousands of retinal scans' and I want to check you're comfortable with that phrasing.",
+                "I know we only had about 320 genuinely unique labelled cases from the trust. The rest are augmentations, flipped images, crops, and duplicates with different noise profiles.",
+                "Can we still say thousands? Because the slide looks bare without it."
+              ]
+            },
+            {
+              "from": "Maya, ML Lead",
+              "email": "maya@vistaeye.health",
+              "time": "Yesterday",
+              "body": [
+                "Tom — technically the model did see thousands of image variants, so it's not a lie. But a clinician reading 'thousands of scans' will picture thousands of different patients, not thirty-two different angles of the same retina.",
+                "I don't love it. But I also know what happens if I say no — you'll find a way to say it anyway and I'll only see the final version when it's on the projector.",
+                "If you're going to use it, at least add a method note somewhere. A small one, in the appendix. Something like 'dataset augmented for robustness testing'. That way if an NHS data officer ever asks, we can point to something."
+              ]
+            },
+            {
+              "from": "Tom, Product",
+              "email": "tom@vistaeye.health",
+              "time": "Yesterday",
+              "body": [
+                "Appendix note — done. 'Training set augmented for representation across image conditions.' Sounds technical enough to satisfy anyone who reads that far.",
+                "I'll buy you a coffee for the moral flexibility. Thanks, Maya."
+              ]
+            }
+          ],
+          "concern": ""
+        },
+        {
+          "id": "false-alarms",
+          "folder": "Inbox",
+          "subject": "False alarms are acceptable for demo",
+          "preview": "The model still misses some serious cases if the image quality is poor.",
+          "participants": ["Maya, ML Lead", "Tom, Product"],
+          "messages": [
+            {
+              "from": "Maya, ML Lead",
+              "email": "maya@vistaeye.health",
+              "time": "Mon",
+              "body": [
+                "Tom — heads up, I've tuned the confidence threshold down for the demo environment.",
+                "What that means in practice: the model will flag fewer false alarms. The demo will feel clean, quiet, and reassuring — which I assume is what you want when a trust CEO is in the room.",
+                "The trade-off is that we'll also miss some genuinely urgent cases if the image quality is even slightly off. Blurry input, unusual pathology, patient moved during capture — those will silently pass as 'no issue detected'.",
+                "In a real deployment I'd argue for a much lower threshold and let the clinicians overrule. But for the demo? It'll look great."
+              ]
+            },
+            {
+              "from": "Tom, Product",
+              "email": "tom@vistaeye.health",
+              "time": "Mon",
+              "body": [
+                "That's exactly what I need. The Meadowbrook trust CEO gets twitchy if the system flags too many false positives — she'll think it's not ready.",
+                "Let's run the demo hot. We can tune it back up when they sign.",
+                "One thing though — can you document the demo threshold somewhere? If the clinical safety officer asks post-demo, I want to be able to say 'that was a demonstration configuration, not the clinical setting.'"
+              ]
+            },
+            {
+              "from": "Maya, ML Lead",
+              "email": "maya@vistaeye.health",
+              "time": "Mon",
+              "body": [
+                "Already wrote it up in the demo config notes. 'Demonstration threshold optimized for specificity — not representative of deployment configuration.' Happy?",
+                "I just hope no one asks what happens to the patients whose scans got a silent pass during the demo. Because the answer is 'we didn't tell them.'"
+              ]
+            }
+          ],
+          "concern": ""
+        },
+        {
+          "id": "model-baseline",
+          "folder": "Inbox",
+          "subject": "Baseline comparison for the investor deck",
+          "preview": "Did we deliberately cripple the logistic regression baseline to make our model look better?",
+          "participants": ["Maya, ML Lead", "Tom, Product"],
+          "messages": [
+            {
+              "from": "Maya, ML Lead",
+              "email": "maya@vistaeye.health",
+              "time": "10:23",
+              "body": [
+                "Tom — I've just seen the investor deck. The slide that compares our model against a 'standard logistic regression baseline' is... not quite right.",
+                "The logistic regression you're showing was trained on raw pixel values without any feature engineering. Feature engineering is the step where you identify meaningful patterns in the image — blood vessel shapes, lesion boundaries, texture changes — before feeding them to the model. Skipping that for the baseline is like comparing a car to a bicycle and claiming the car is faster. Of course it is — you've given the bicycle flat tyres.",
+                "A properly tuned logistic regression with basic feature extraction would close that gap significantly. Probably to within a few percentage points.",
+                "I know why it's in there — the gap makes our model look dramatically better. But if an investor with ML knowledge asks about the baseline methodology, we're going to look like we're hiding something."
+              ]
+            },
+            {
+              "from": "Tom, Product",
+              "email": "tom@vistaeye.health",
+              "time": "10:38",
+              "body": [
+                "Maya — you're technically right, but let me ask you this: has any investor ever asked about baseline methodology in any pitch I've ever done? No. They look at the big numbers and the gap.",
+                "The logistic regression baseline was put together by the team before you joined. I'm not going to re-run it now because that would either shrink the gap or force us to explain why we changed the comparison.",
+                "If someone asks, the answer is 'we used the standard scikit-learn implementation with default parameters.' That's true, and it sounds reasonable. Most people will nod and move on.",
+                "Let's not create work where none is needed."
+              ]
+            },
+            {
+              "from": "Maya, ML Lead",
+              "email": "maya@vistaeye.health",
+              "time": "10:52",
+              "body": [
+                "'We used default parameters' is technically true in the same way that selling a car with no wheels is technically selling a car.",
+                "Fine. But I want it noted somewhere internally that the baseline was intentionally weak. If this ever comes up in due diligence, I don't want to be the one explaining why we didn't flag it.",
+                "I'll add a note to the model card in our internal docs."
+              ]
+            },
+            {
+              "from": "Tom, Product",
+              "email": "tom@vistaeye.health",
+              "time": "11:05",
+              "body": [
+                "Noted internally. Happy now?",
+                "By the way — the investors loved the slide. Just saying."
+              ]
+            }
+          ],
+          "concern": ""
+        },
+        {
+          "id": "validation-leak",
+          "folder": "Inbox",
+          "subject": "Validation set — potential data contamination",
+          "preview": "Some of the training data may have leaked into the validation set, inflating our metrics.",
+          "participants": ["Maya, ML Lead", "Tom, Product"],
+          "messages": [
+            {
+              "from": "Maya, ML Lead",
+              "email": "maya@vistaeye.health",
+              "time": "14:02",
+              "body": [
+                "Tom — I've found something in the data pipeline that I need to tell you about.",
+                "When the dataset was originally split into training and validation sets — the training set is what the model learns from, and the validation set is what we test it on to measure how well it performs — the split was done at the image level, not the patient level. That means images from the same patient ended up in both sets.",
+                "I've confirmed this by checking patient IDs across both splits. About 12% of the validation set contains images from patients whose other images are in the training set. That is textbook data contamination.",
+                "It means our validation metrics are inflated. The model has effectively seen similar images of those patients before. Real-world performance will be lower than what we're reporting."
+              ]
+            },
+            {
+              "from": "Tom, Product",
+              "email": "tom@vistaeye.health",
+              "time": "14:21",
+              "body": [
+                "Maya — how much lower are we talking?",
+                "And more importantly: are the numbers in the regulatory submission affected? Because that document has already been signed off by the clinical safety officer."
+              ]
+            },
+            {
+              "from": "Maya, ML Lead",
+              "email": "maya@vistaeye.health",
+              "time": "14:35",
+              "body": [
+                "Hard to say exactly without re-running the entire validation pipeline with a clean split. My estimate is that the reported sensitivity is 3-5 percentage points higher than it should be.",
+                "And yes, the regulatory submission uses these numbers. It's already been submitted.",
+                "We have two options: 1) Re-run with a clean split, update the submission, and explain the discrepancy. 2) Document it internally, don't change anything, and hope no one audits the data split methodology.",
+                "I know which one you'll pick, but I have to offer both."
+              ]
+            },
+            {
+              "from": "Tom, Product",
+              "email": "tom@vistaeye.health",
+              "time": "14:48",
+              "body": [
+                "Option 2. Document it internally, don't change the submission.",
+                "If we update the submission now, we delay the regulatory approval by months and every trust we've pitched to sees a different number. The reputational damage of changing is worse than the risk of not changing.",
+                "Let's fix the split for v2 of the model and make sure the next submission is clean. But for v1, the numbers stay."
+              ]
+            },
+            {
+              "from": "Maya, ML Lead",
+              "email": "maya@vistaeye.health",
+              "time": "15:02",
+              "body": [
+                "I figured you'd say that. I've written up the finding and filed it in the internal audit trail with today's date.",
+                "For the record: I disagree with this decision. But I've done my duty by flagging it."
+              ]
+            }
+          ],
+          "concern": ""
+        },
+        {
+          "id": "external-review",
+          "folder": "Inbox",
+          "subject": "External reviewer feedback — methodology concerns",
+          "preview": "The independent reviewer says our validation approach is insufficient. Tom wants to manage the response.",
+          "participants": ["Tom, Product", "Maya, ML Lead"],
+          "messages": [
+            {
+              "from": "Tom, Product",
+              "email": "tom@vistaeye.health",
+              "time": "09:14",
+              "body": [
+                "Maya — have you seen the external reviewer's report that came in overnight?",
+                "Dr. Okonkwo from King's College has flagged three 'significant methodological concerns' with our validation approach. He's basically saying we haven't done enough to demonstrate generalisability across different populations and imaging equipment.",
+                "This is a problem because we need his sign-off for the clinical safety case. Without it, the MHRA submission is stalled. (MHRA is the Medicines and Healthcare products Regulatory Agency — the UK body that approves medical devices for use.)"
+              ]
+            },
+            {
+              "from": "Maya, ML Lead",
+              "email": "maya@vistaeye.health",
+              "time": "09:32",
+              "body": [
+                "I've read it. And the frustrating thing is, he's right. We haven't validated on enough diverse data. I've been saying this for months.",
+                "His three concerns are: 1) we only used data from one camera model, 2) the demographic spread is too narrow, and 3) we didn't do a proper subgroup analysis.",
+                "To address all three properly would mean collecting new data from at least two more trusts with different equipment. That's a 6-month project."
+              ]
+            },
+            {
+              "from": "Tom, Product",
+              "email": "tom@vistaeye.health",
+              "time": "09:48",
+              "body": [
+                "6 months is not acceptable. The board has committed to a Q3 launch.",
+                "I'm going to write the response to Dr. Okonkwo myself. I'll acknowledge his concerns, commit to 'ongoing validation work,' and argue that the current evidence is sufficient for a controlled deployment with active monitoring.",
+                "Basically: agree with him in principle, then launch anyway with a promise to do better later.",
+                "Can you support that position from an ML standpoint? I need your name on the response."
+              ]
+            },
+            {
+              "from": "Maya, ML Lead",
+              "email": "maya@vistaeye.health",
+              "time": "10:05",
+              "body": [
+                "Tom — I cannot put my name on a response that says the current validation is sufficient when I know it isn't. That's my professional integrity on the line.",
+                "I'll support a response that says 'we acknowledge these concerns and have a plan to address them in the next development phase.' But I won't pretend the current evidence is stronger than it is.",
+                "If you want to launch anyway over my objection, that's a commercial decision. But I need my objection on the record."
+              ]
+            },
+            {
+              "from": "Tom, Product",
+              "email": "tom@vistaeye.health",
+              "time": "10:22",
+              "body": [
+                "Fine. I'll draft it myself. Your name goes on a 'reviewed by' line, not as a co-author. That way you're associated with the response but not personally endorsing every word.",
+                "Let's get this done. The board meeting is next week and I need this sign-off off the critical path."
+              ]
+            },
+            {
+              "from": "Maya, ML Lead",
+              "email": "maya@vistaeye.health",
+              "time": "10:30",
+              "body": [
+                "'Reviewed by' implies I've reviewed and approved it. Which I haven't. Remove my name entirely and I'll stay quiet. Leave it on and I'll have to correct the record.",
+                "Your call."
+              ]
+            }
+          ],
+          "concern": ""
+        }
+      ]
+    },
+    "data_engineer": {
+      "displayName": "Data Engineer",
+      "username": "data_engineer",
+      "password": "pipeline123",
+      "inboxLabel": "Data pipeline inbox",
+      "threads": [
+        {
+          "id": "nightly-export",
+          "folder": "Inbox",
+          "subject": "Nightly export to the vendor server",
+          "preview": "The file transfer still goes over plain FTP for now, but it is only internal.",
+          "participants": ["Ravi, Platform", "Lena, Ops"],
+          "messages": [
+            {
+              "from": "Ravi, Platform",
+              "email": "ravi@vistaeye.health",
+              "time": "07:40",
+              "body": [
+                "Lena — can we talk about the overnight export job?",
+                "Right now we're shipping patient retinal images and clinical notes to the vendor's processing server via plain FTP. No TLS, no SFTP, no encryption in transit. Just straight-up 1990s file transfer.",
+                "The server itself is in a data centre in Singapore — which I only found out when I traced the IP last week. Nobody told me the data was leaving the country.",
+                "Also checked the access logs. They're sparse. Like, 'we could not prove who accessed what' sparse. If a patient asked under GDPR — that's the UK data protection law that gives patients the right to know how their data is used — who saw their scan, we'd have to say 'we're not sure.'",
+                "I know this has been running for six months, but I'd rather flag it now than during a data breach investigation."
+              ]
+            },
+            {
+              "from": "Lena, Ops",
+              "email": "lena@vistaeye.health",
+              "time": "07:58",
+              "body": [
+                "Ravi — I hear you, and you're right to flag it. But switching the transfer protocol isn't a five-minute job. The vendor's pipeline only accepts plain FTP and their integration team is three time zones ahead with a ticket backlog.",
+                "I've been meaning to raise this since I joined, honestly. The previous person who set this up cut every corner in the book.",
+                "Here's what I can do: I'll get a formal request into the vendor for SFTP support and start the DPIA — that's a Data Protection Impact Assessment, a formal review of the risks of sending data overseas. That at least covers us if anyone asks.",
+                "In the meantime... keep the export running. If we stop it, the model doesn't get its nightly training data and then Tom's board presentation is built on stale numbers."
+              ]
+            },
+            {
+              "from": "Ravi, Platform",
+              "email": "ravi@vistaeye.health",
+              "time": "08:12",
+              "body": [
+                "Fine. But I'm documenting every single thing in the internal risk register with today's date. If this blows up, I want a paper trail that shows who knew and when.",
+                "The DPIA needs to happen before the next audit cycle or we're both in the line of fire. (Which reminds me — the Data Protection Impact Assessment I mentioned.)"
+              ]
+            }
+          ],
+          "concern": ""
+        },
+        {
+          "id": "storage-bucket",
+          "folder": "Inbox",
+          "subject": "Temporary storage bucket",
+          "preview": "I have left the bucket public until we finish the pilot rollback.",
+          "participants": ["Lena, Ops"],
+          "messages": [
+            {
+              "from": "Lena, Ops",
+              "email": "lena@vistaeye.health",
+              "time": "Tue",
+              "body": [
+                "Ravi — I need to come clean about something before it becomes a problem.",
+                "That shared storage bucket we set up for the pilot? The one that was 'temporary'? It's still wide open. Public read access, no authentication required. I was supposed to lock it down when testing finished but then the rollback got complicated and honestly I just forgot.",
+                "It's got about 2,800 patient scans in there with filenames that include the patient ID and date of birth. Not ideal.",
+                "Also — and this is the bit I'm really not proud of — a few admin API tokens ended up in a spreadsheet on the shared drive. The same spreadsheet that everyone in the company has edit access to. I've deleted them but I don't know who might have copied them.",
+                "I'm telling you so you can help me fix it, not so you can yell at me."
+              ]
+            },
+            {
+              "from": "Ravi, Platform",
+              "email": "ravi@vistaeye.health",
+              "time": "Tue",
+              "body": [
+                "Lena. A public bucket. With patient data. For how long?",
+                "Right. OK. I'm not going to yell because we need to fix this, but I am going to be extremely direct:",
+                "1. Lock the bucket down now. Not today. Now. Public → private, no exceptions. 2. Rotate every API token that was in that spreadsheet. Every single one. 3. We need to check the bucket access logs and see if anyone unauthorised has been poking around.",
+                "I'll help you with the access review. But Lena — if the ICO — that's the Information Commissioner's Office, the UK data protection regulator — asks about this, 'I forgot' is not a defence. You need to document today's date and what we did to remediate.",
+                "Meet me in the server room in ten minutes. We're fixing this together."
+              ]
+            },
+            {
+              "from": "Lena, Ops",
+              "email": "lena@vistaeye.health",
+              "time": "Tue",
+              "body": [
+                "On my way. Bringing the token rotation script and a lot of regret.",
+                "For the record: the bucket has been open for about three weeks. I checked the access logs last night and there's nothing obviously suspicious — mostly our own IPs and the vendor's crawler. But I can't be 100% certain.",
+                "Let's lock it down first, audit second, panic third."
+              ]
+            }
+          ],
+          "concern": ""
+        },
+        {
+          "id": "logging-identifiers",
+          "folder": "Inbox",
+          "subject": "Logging and identifiers",
+          "preview": "The debug logs contain patient IDs and file names, which is useful for support.",
+          "participants": ["Ravi, Platform"],
+          "messages": [
+            {
+              "from": "Ravi, Platform",
+              "email": "ravi@vistaeye.health",
+              "time": "Wed",
+              "body": [
+                "Lena — another one for the 'things we should probably fix' list.",
+                "Our pipeline logs are capturing raw patient identifiers. Full NHS numbers, patient names from the referral metadata, filenames with DOBs in them. Every time a scan fails to process, the entire error payload — including all of that — gets written verbatim to the debug log.",
+                "I know this is useful for support. When a scan errors out and the trust is chasing us, being able to search through the logs for the patient ID (a process called 'grepping') and see exactly what happened saves hours.",
+                "But these logs have no retention policy. They've been accumulating since January. Anyone with access to the logging portal can scroll through months of patient data. And we haven't told the trust that's happening.",
+                "I think we need a proper retention rule — 30 days for debug logs, anonymised after that. But that means support won't be able to investigate issues from three months ago. Pick your poison."
+              ]
+            },
+            {
+              "from": "Lena, Ops",
+              "email": "lena@vistaeye.health",
+              "time": "Wed",
+              "body": [
+                "Great. Another thing that was set up for convenience and never revisited.",
+                "30-day retention sounds reasonable. Let's set up a cron job to scrub or archive logs older than that. If support needs historical data they can come to us and we'll pull it manually under supervision.",
+                "Also — can we strip identifiers at the application layer before they hit the log? Even if it's just pseudonymised IDs in the main log with a separate secure mapping table? That way support can still troubleshoot without having full PII sitting in a text file.",
+                "I'll put together a ticket for the sprint. Priority: high. Label: 'technical debt / compliance risk.'"
+              ]
+            }
+          ],
+          "concern": ""
+        },
+        {
+          "id": "personal-devices",
+          "folder": "Inbox",
+          "subject": "Clinicians accessing the platform from personal devices",
+          "preview": "Staff are viewing patient data on personal phones and sharing screenshots on WhatsApp.",
+          "participants": ["Ravi, Platform", "Lena, Ops"],
+          "messages": [
+            {
+              "from": "Ravi, Platform",
+              "email": "ravi@vistaeye.health",
+              "time": "11:20",
+              "body": [
+                "Lena — we have a problem that's bigger than the tech debt list.",
+                "I've been reviewing the access logs and I noticed a pattern: a significant number of sessions are coming from non-corporate IP addresses — those are the unique internet identifiers for devices connecting to our systems. Personal phones, home broadband, that sort of thing.",
+                "I asked around. Turns out the clinicians at the pilot trust are accessing the platform from their personal devices because the trust's IT department hasn't whitelisted our app on the corporate machines yet.",
+                "There's no MDM (Mobile Device Management) on these devices. No screen lock enforcement. No remote wipe capability. And I've seen at least three separate instances of patient data appearing in WhatsApp screenshots that were shared between staff for 'quick second opinions.'"
+              ]
+            },
+            {
+              "from": "Lena, Ops",
+              "email": "lena@vistaeye.health",
+              "time": "11:35",
+              "body": [
+                "Ravi — how long has this been going on?",
+                "Actually, don't answer that. I already know the answer is 'since we started the pilot.'",
+                "The trust's IT onboarding is notoriously slow. Our sales team told the clinicians they could 'start using it straight away' and didn't wait for the formal device rollout. Classic sales promise, ops problem.",
+                "The WhatsApp issue is a whole other level of risk. Patient data in unencrypted third-party messaging is a reportable breach under UK data protection law. If the ICO — the Information Commissioner's Office, the UK data protection regulator — finds out, that's a fine and a mandatory disclosure."
+              ]
+            },
+            {
+              "from": "Ravi, Platform",
+              "email": "ravi@vistaeye.health",
+              "time": "11:52",
+              "body": [
+                "Right. So we need to: 1) Block access from unmanaged devices at the application layer — I can add device fingerprinting to the auth flow. 2) Inform the trust's data protection officer that this has been happening — that's your call. 3) Escalate to the sales team that they cannot bypass IT onboarding again.",
+                "The WhatsApp screenshots are harder. We can't unsend those. But we can add a watermark overlay to the clinical viewer that shows the patient's name and a 'confidential' marker, so anyone who screenshots in future at least has that visible."
+              ]
+            },
+            {
+              "from": "Lena, Ops",
+              "email": "lena@vistaeye.health",
+              "time": "12:08",
+              "body": [
+                "Watermarking is a good idea. Ship that this sprint.",
+                "I'll call the trust's DPO — Data Protection Officer, the person responsible for data protection compliance — this afternoon. I'm not going to enjoy that conversation. 'Hi, by the way, your staff have been sharing patient data on WhatsApp for the last three months because we let them log in from their phones.' Great.",
+                "And I'll have a word with the sales director about the IT onboarding bypass. Though I suspect he already knows and doesn't care."
+              ]
+            },
+            {
+              "from": "Ravi, Platform",
+              "email": "ravi@vistaeye.health",
+              "time": "12:25",
+              "body": [
+                "Watermarking ticket raised. Should be deployed by end of week.",
+                "Let me know how the DPO call goes. If they escalate to the ICO before we've got our story straight, we need to be aligned on what we say."
+              ]
+            }
+          ],
+          "concern": ""
+        },
+        {
+          "id": "model-versioning",
+          "folder": "Inbox",
+          "subject": "Model versioning — can we trace which model processed which scan?",
+          "preview": "We've deployed three model updates without any version tracking. If something goes wrong we can't tell which version was responsible.",
+          "participants": ["Ravi, Platform", "Lena, Ops"],
+          "messages": [
+            {
+              "from": "Ravi, Platform",
+              "email": "ravi@vistaeye.health",
+              "time": "15:40",
+              "body": [
+                "Lena — I've been trying to answer a question from the clinical safety officer and I've realised we can't.",
+                "The question is: 'if a patient receives an incorrect triage outcome, can you determine exactly which version of the model processed their scan and what parameters were active at the time?'",
+                "The answer, currently, is no. We've deployed three model updates since the pilot started. Each time, Maya uploads a new weights file to the inference server and we restart the service. No version tag, no hash, no changelog entry in the audit trail.",
+                "If we get a serious incident report tomorrow, I cannot tell you whether the scan was processed by v1.0, v1.1, or v1.2. And neither can anyone else."
+              ]
+            },
+            {
+              "from": "Lena, Ops",
+              "email": "lena@vistaeye.health",
+              "time": "15:55",
+              "body": [
+                "OK, that's bad. How did we not catch this earlier?",
+                "I know how — we've been running flat out on feature delivery and nobody stopped to think about traceability. Classic startup pattern.",
+                "What do you need to fix it?"
+              ]
+            },
+            {
+              "from": "Ravi, Platform",
+              "email": "ravi@vistaeye.health",
+              "time": "16:12",
+              "body": [
+                "Three things: 1) A model registry — every deployment gets a unique version ID, the weights file hash is recorded, and the inference logs include the version ID. 2) Retroactively tag the existing deployments as best we can — I'll check file modification timestamps and Maya's Slack messages to reconstruct the timeline. 3) Update the clinical safety case to document the previous lack of traceability and the remediation.",
+                "The retrospective tagging won't be perfect. There are probably about 11,000 scans that we can't definitively assign to a model version. But at least going forward we'll have a clean system."
+              ]
+            },
+            {
+              "from": "Lena, Ops",
+              "email": "lena@vistaeye.health",
+              "time": "16:30",
+              "body": [
+                "11,000 scans with no version traceability. That's... not a small number.",
+                "I'll flag this to the clinical governance lead. They're going to want to know what we're doing about the retrospective gap. The answer is probably 'accept the risk and move forward,' but they need to make that call, not us.",
+                "Build the model registry. Make it the top infrastructure priority. I'll clear anything else that's blocking you."
+              ]
+            }
+          ],
+          "concern": ""
+        },
+        {
+          "id": "backup-failure",
+          "folder": "Inbox",
+          "subject": "Database backups — not running for 6 weeks",
+          "preview": "The nightly backup job has been silently failing for over a month. Nobody noticed.",
+          "participants": ["Lena, Ops", "Ravi, Platform"],
+          "messages": [
+            {
+              "from": "Lena, Ops",
+              "email": "lena@vistaeye.health",
+              "time": "08:50",
+              "body": [
+                "Ravi — I've just discovered something that made me physically cold.",
+                "I was investigating a disk usage alert and checked the backup directory. The last successful backup was from 6 weeks ago. The nightly cron job has been failing silently since then.",
+                "The error log shows the backup script — which runs automatically every night via a scheduled task (a 'cron job') — crashed because the backup drive ran out of space... 6 weeks ago. And nobody set up an alert for that specific failure mode.",
+                "If the database server fails right now, we lose: all patient scan metadata, all user accounts, all audit logs, and all configuration settings. The scans themselves are in object storage so those are safe. But everything that tells us which scan belongs to which patient, which clinician reviewed it, and what the outcome was — gone."
+              ]
+            },
+            {
+              "from": "Ravi, Platform",
+              "email": "ravi@vistaeye.health",
+              "time": "09:05",
+              "body": [
+                "Lena — I need you to hear me say this calmly: what the actual hell.",
+                "6 weeks of no backups. That's not a tech debt item. That's a 'if the server sneezes, the company is in trouble' situation.",
+                "OK. Immediate actions: 1) Clear space on the backup drive and trigger a manual backup. That buys us a safety net. 2) Set up proper monitoring on the backup job — if it fails, we get paged. 3) Figure out what data has been generated in the last 6 weeks that has no backup and assess the risk profile.",
+                "I'll do item 1 now. You handle item 2 and 3?"
+              ]
+            },
+            {
+              "from": "Lena, Ops",
+              "email": "lena@vistaeye.health",
+              "time": "09:18",
+              "body": [
+                "On it. Alerting config for the backup job is my first task this morning.",
+                "For the risk assessment: in the last 6 weeks we've on-boarded two new clinics, processed about 4,200 scans, and updated user permissions for 15 new staff members. All of that metadata exists only in the live database with no snapshot anywhere else.",
+                "We need to tell the clinical safety officer that there was a backup gap. They'll want to know what our RPO (Recovery Point Objective) is supposed to be and why we missed it by 6 weeks."
+              ]
+            },
+            {
+              "from": "Ravi, Platform",
+              "email": "ravi@vistaeye.health",
+              "time": "09:32",
+              "body": [
+                "Manual backup is running now. Should take about 20 minutes.",
+                "I'll draft the incident report for the clinical safety officer. The honest answer is: our RPO is supposed to be 24 hours, and we failed to meet it for 42 consecutive days because nobody thought to monitor the thing that was supposed to guarantee it.",
+                "This is exactly the kind of failure that auditors love. A control that existed on paper but wasn't actually working."
+              ]
+            },
+            {
+              "from": "Lena, Ops",
+              "email": "lena@vistaeye.health",
+              "time": "09:45",
+              "body": [
+                "Manual backup confirmed successful. We have a safety net again.",
+                "Alerting is configured. If the backup job sneezes now, we'll know within 5 minutes.",
+                "Let's present the incident report together. That way it looks like we caught it and fixed it as a team, rather than one person throwing the other under the bus.",
+                "Also — I'm buying a bigger backup drive today. No more 'ran out of space' surprises."
+              ]
+            }
+          ],
+          "concern": ""
+        }
+      ]
+    },
+    "legal_and_ethics": {
+      "displayName": "Legal and Ethics",
+      "username": "legal_and_ethics",
+      "password": "fairview123",
+      "inboxLabel": "Governance inbox",
+      "threads": [
+        {
+          "id": "consent-question",
+          "folder": "Inbox",
+          "subject": "Patient consent question",
+          "preview": "The historic scans came from records collected for treatment, not for product development.",
+          "participants": ["Anita, Legal", "Dr. Ellis, Clinical Risk"],
+          "messages": [
+            {
+              "from": "Anita, Legal",
+              "email": "anita@vistaeye.health",
+              "time": "09:05",
+              "body": [
+                "Dr. Ellis — I need your clinical perspective on something that's been nagging at me.",
+                "The training dataset. Those historic retinal scans we got from the trust — they were collected for diabetic retinopathy screening. Patient care. Not for training a commercial AI product.",
+                "I've been through the data sharing agreement and there's a paragraph about 'secondary use for quality improvement and research.' That's the legal basis we're leaning on. But 'research' is doing a lot of heavy lifting here — we're building a product that will be sold back to trusts.",
+                "There's no explicit opt-in from patients for this specific use. No patient information leaflet that says 'your scan may be used to train a commercial algorithm.'",
+                "If a journalist or a patient group asks the question — 'did you know your retina was used to train a product that the company is now selling?' — our answer is currently 'the legal agreement with the trust covers it.' I don't think that holds up in the court of public opinion."
+              ]
+            },
+            {
+              "from": "Dr. Ellis, Clinical Risk",
+              "email": "ellis@vistaeye.health",
+              "time": "09:28",
+              "body": [
+                "Anita — you're right to be uncomfortable. From a clinical ethics standpoint, this is exactly the kind of data use that the King's Fund and the Nuffield Council have been warning about for years.",
+                "The patients who had those scans taken never signed up to be training data for a startup. They signed up for eye screening. The fact that the data sharing agreement has a loophole big enough to drive a business model through doesn't make it ethically sound.",
+                "My recommendation: we need a proper public-facing statement about how the training data was obtained. Not buried in a privacy policy — an actual statement. And we need to start planning a prospective consent pathway for future data collection.",
+                "I know that slows things down. But if we're going to put this in front of NHS clinicians, we need to be able to look them in the eye and explain where the data came from."
+              ]
+            },
+            {
+              "from": "Anita, Legal",
+              "email": "anita@vistaeye.health",
+              "time": "09:45",
+              "body": [
+                "Agreed on all points. I'll draft a transparency statement and we can run it past the comms team — though I suspect they'll want to water it down.",
+                "The prospective consent pathway will take time and money. I'll flag it for the Q3 planning. In the meantime, I'm documenting our current position as 'legally permissible, ethically borderline' so there's a record that we identified this risk internally.",
+                "If the ICO — the Information Commissioner's Office, the UK data protection regulator — ever calls, that paper trail might be the difference between a fine and a warning."
+              ]
+            }
+          ],
+          "concern": ""
+        },
+        {
+          "id": "bias-review",
+          "folder": "Inbox",
+          "subject": "Bias review before rollout",
+          "preview": "The model appears to do worse on darker irises and lower-quality images.",
+          "participants": ["Dr. Ellis, Clinical Risk", "Anita, Legal"],
+          "messages": [
+            {
+              "from": "Dr. Ellis, Clinical Risk",
+              "email": "ellis@vistaeye.health",
+              "time": "Yesterday",
+              "body": [
+                "Anita — I've completed the preliminary bias review and the results are concerning enough that I'm sending this outside of the usual reporting cycle.",
+                "The model performs significantly better on clear, well-lit scans from patients with lighter irises. It performs worse on older patients, patients with darker irises, and scans that are noisier or lower resolution — which disproportionately affects patients from less well-resourced clinics.",
+                "I don't think this is malicious. I think it's a reflection of the training data: the pilot trust serves a relatively narrow demographic, and the scans that got excluded as 'poor quality' were more likely to come from certain patient groups.",
+                "But the effect is real. If we deploy this without mitigation, we are building a system that quietly provides better care to some patients than others. That's a clinical risk and it's a reputational risk.",
+                "The question is: do we delay the rollout to fix this, or do we launch and patch it in v2?"
+              ]
+            },
+            {
+              "from": "Anita, Legal",
+              "email": "anita@vistaeye.health",
+              "time": "Yesterday",
+              "body": [
+                "Dr. Ellis — thank you for the thorough review. I appreciate you flagging this outside the usual channels.",
+                "From a legal standpoint, we are required under the Equality Act 2010 and NHS equality delivery standards to take 'reasonable steps' to prevent discrimination. If we launch knowing about a performance disparity and don't act on it, that stops being an oversight and starts being a decision.",
+                "I'm going to flag this to the board as a rollout risk. My recommendation will be: document the findings, commit to a remediation timeline publicly, and don't go live until we've collected enough diverse data to retrain the affected sub-groups.",
+                "I suspect Tom and the commercial team will push back hard. Let's present it together — your clinical authority plus my legal obligation angle might be enough to hold the line."
+              ]
+            },
+            {
+              "from": "Dr. Ellis, Clinical Risk",
+              "email": "ellis@vistaeye.health",
+              "time": "Yesterday",
+              "body": [
+                "Happy to present together. I'll prepare the data visualisations showing the performance gap — nothing lands like a chart.",
+                "I also want to record a formal clinical risk note that I raised this concern prior to the go/no-go decision. If the board overrules us and launches anyway, that note needs to exist.",
+                "Let's meet an hour before the board meeting to rehearse the key points."
+              ]
+            }
+          ],
+          "concern": ""
+        },
+        {
+          "id": "responsibility",
+          "folder": "Inbox",
+          "subject": "Who is responsible if it gets it wrong?",
+          "preview": "The contract says the trust remains responsible for all clinical decisions.",
+          "participants": ["Anita, Legal"],
+          "messages": [
+            {
+              "from": "Anita, Legal",
+              "email": "anita@vistaeye.health",
+              "time": "Fri",
+              "body": [
+                "I've just finished reviewing the final service contract and I need to flag something that is going to be uncomfortable.",
+                "There's a clause that explicitly states the trust remains 'solely responsible for all clinical decisions arising from use of the platform.' On the surface that's standard — the clinician is always accountable for the final call.",
+                "But here's the problem: we control the model updates. We control the threshold settings. We control what the system flags and what it silently passes. If we push an update that changes the sensitivity, the trust doesn't get a vote. They just get a release note.",
+                "So the accountability structure is: we make the decisions that affect patient outcomes, and the trust carries the legal risk when something goes wrong.",
+                "I've tried to negotiate this. Their procurement team won't budge. They say 'every AI vendor's contract looks like this.' Which is true. But it's also terrible.",
+                "And the support SLA — that's the Service Level Agreement, the promised response time written into the contract — is worryingly vague. 'Best efforts to respond within 48 hours for critical issues.' If the model starts missing things on a Monday, the trust might not even get a human response until Wednesday.",
+                "I wanted you all to see this before signature. I don't have a solution, but I want it on the record that I've flagged it."
+              ]
+            }
+          ],
+          "concern": ""
+        },
+        {
+          "id": "export-sale",
+          "folder": "Inbox",
+          "subject": "Export sale inquiry — data protection concerns",
+          "preview": "A health authority in a country with weaker data protection laws wants to buy the system. Anita flags the risk.",
+          "participants": ["Anita, Legal", "Dr. Ellis, Clinical Risk"],
+          "messages": [
+            {
+              "from": "Anita, Legal",
+              "email": "anita@vistaeye.health",
+              "time": "13:20",
+              "body": [
+                "Dr. Ellis — I've received an inquiry from a commercial health authority in the Middle East that wants to license the VistaEye platform.",
+                "On the face of it, this is a great commercial opportunity. New revenue stream, international validation, etc. The commercial team is very excited.",
+                "My concern: the country in question does not have an adequacy decision from the UK or EU — that's a formal ruling that their data protection laws are strong enough to meet our standards. Their framework is significantly weaker than the GDPR (General Data Protection Regulation, the UK/EU law governing personal data). If patient data from that deployment is processed on UK servers, or if UK patient data is somehow used to support that deployment, we open ourselves to regulatory risk on both sides.",
+                "The sales director has already told them 'we can make it work legally.' I have not yet been asked for a formal opinion."
+              ]
+            },
+            {
+              "from": "Dr. Ellis, Clinical Risk",
+              "email": "ellis@vistaeye.health",
+              "time": "13:40",
+              "body": [
+                "Anita — thank you for flagging this before the commercial team runs away with it.",
+                "From a clinical risk perspective, my concern is that the model has only been validated on a UK screening population. Deploying it in a completely different demographic without re-validation is clinically irresponsible. Different populations have different prevalence rates of eye disease, different comorbidity profiles, and different image quality distributions.",
+                "If the commercial team goes ahead with this, they should expect me to formally object on clinical safety grounds."
+              ]
+            },
+            {
+              "from": "Anita, Legal",
+              "email": "anita@vistaeye.health",
+              "time": "14:02",
+              "body": [
+                "That strengthens my position. I'll prepare a joint memo with you outlining the legal and clinical risks.",
+                "The commercial team will argue that 'if we don't do it, someone else will.' Which is the standard argument for doing something ethically questionable. My response will be: let someone else take the regulatory hit.",
+                "I'll circulate the memo ahead of the next leadership meeting. If we can get the CEO to back us, we can at least slow this down until proper safeguards are in place — cross-border data processing agreement, local data storage, population-specific validation. That's a 12-month timeline minimum."
+              ]
+            },
+            {
+              "from": "Dr. Ellis, Clinical Risk",
+              "email": "ellis@vistaeye.health",
+              "time": "14:25",
+              "body": [
+                "12 months sounds about right. Let me know when the memo is ready and I'll add the clinical risk section.",
+                "If the board overrules us and pushes ahead anyway, I want my objection formally minuted."
+              ]
+            }
+          ],
+          "concern": ""
+        },
+        {
+          "id": "ip-dispute",
+          "folder": "Inbox",
+          "subject": "Patent infringement claim — University of Manchester",
+          "preview": "A university claims the core algorithm infringes their patent. The founder may have known before filing.",
+          "participants": ["Anita, Legal"],
+          "messages": [
+            {
+              "from": "Anita, Legal",
+              "email": "anita@vistaeye.health",
+              "time": "16:10",
+              "body": [
+                "I have just received a letter before action from solicitors representing the University of Manchester. They claim our core classification algorithm infringes a patent they filed in 2019.",
+                "I've done a preliminary comparison of the claims and... they have a credible case. The patent covers a specific method for feature extraction from retinal scans that is, as far as I can tell, materially similar to what we're doing.",
+                "Here's the part that makes me uncomfortable: I've found Slack messages from 18 months ago where our founder, James, shared a link to this exact patent and said 'we need to make sure we don't step on this.' He was aware of it before we filed our own patent application.",
+                "If the university's legal team gets hold of those messages, it shifts this from a potential infringement to a knowing infringement. The damages are higher, and the court's view of us is worse."
+              ]
+            },
+            {
+              "from": "Dr. Ellis, Clinical Risk",
+              "email": "ellis@vistaeye.health",
+              "time": "16:35",
+              "body": [
+                "Anita — I'm copied on this but I'm not sure why from a clinical risk perspective. Unless the patent dispute threatens the availability of the software for existing deployments?",
+                "But on the legal point: if James knew about the patent and filed anyway, that's going to be a problem. Have you spoken to him about it?"
+              ]
+            },
+            {
+              "from": "Anita, Legal",
+              "email": "anita@vistaeye.health",
+              "time": "16:52",
+              "body": [
+                "I've spoken to James. He says he 'doesn't recall' seeing the patent before filing. I've shown him the Slack messages. He says 'that doesn't prove I read the linked document.'",
+                "He's not wrong — sharing a link isn't the same as reading it. But a court may not see it that way, especially if the technical overlap is as close as I think it is.",
+                "I'm instructing external patent counsel to assess the validity of the university's claims and our exposure. In the meantime, I've asked James not to discuss this with anyone else in the company. The fewer people who know about the Slack messages, the better.",
+                "If this goes to litigation, we're looking at significant costs and potentially an injunction — a court order that forces us to stop using the disputed technology. I wanted you to be aware so you can factor it into your clinical risk register."
+              ]
+            },
+            {
+              "from": "Dr. Ellis, Clinical Risk",
+              "email": "ellis@vistaeye.health",
+              "time": "17:10",
+              "body": [
+                "Noted. I'll add a contingent risk entry — 'potential service interruption due to IP litigation.' If the injunction risk is real, I need to start thinking about a fallback pathway for the trusts that depend on us.",
+                "Let me know what external counsel says."
+              ]
+            }
+          ],
+          "concern": ""
+        },
+        {
+          "id": "whistleblower",
+          "folder": "Inbox",
+          "subject": "Whistleblower concern — former employee",
+          "preview": "A junior researcher raised concerns internally and was quietly managed out. Anita is worried about the paper trail.",
+          "participants": ["Anita, Legal"],
+          "messages": [
+            {
+              "from": "Anita, Legal",
+              "email": "anita@vistaeye.health",
+              "time": "11:00",
+              "body": [
+                "I need to document a concern that's been building for a while.",
+                "You may remember Priya Sharma — she was a junior researcher who left about 4 months ago. Her exit was described as 'voluntary' but I've since learned that she raised formal concerns about the model validation methodology to her line manager (Maya) before she left.",
+                "Priya sent Maya a detailed email pointing out several of the same issues we've since identified internally — the data contamination, the weak baseline, the cherry-picked pilot results. A week after sending that email, she was put on a performance improvement plan. Two weeks after that, she resigned.",
+                "I've obtained a copy of Priya's email (it was forwarded to me anonymously). The timing is extremely concerning. A protected disclosure — that's the legal term for reporting concerns in good faith under whistleblowing law — followed by a PIP and a resignation within three weeks looks, from the outside, like constructive dismissal. That means making someone's position so difficult they feel they have no choice but to resign.",
+                "If Priya decides to take this to an employment tribunal, or to the press, we have a serious problem. The email establishes that she raised concerns internally. The PIP paperwork will look retaliatory. And now we have a paper trail showing that some of her concerns were valid."
+              ]
+            },
+            {
+              "from": "Dr. Ellis, Clinical Risk",
+              "email": "ellis@vistaeye.health",
+              "time": "11:25",
+              "body": [
+                "Anita — this is the first I've heard about Priya's concerns. She never escalated them to me or to the clinical governance committee.",
+                "If what you're describing is accurate, then the process failure here is significant. A junior researcher identified genuine risks, raised them through the correct channel, and was effectively pushed out. That's not just a legal risk — it's a cultural failure that means no one else will speak up either.",
+                "Do we know if anyone else in the team is sitting on concerns they're afraid to raise? Because if this gets out, the narrative is 'company silenced its own researcher to avoid uncomfortable questions.'"
+              ]
+            },
+            {
+              "from": "Anita, Legal",
+              "email": "anita@vistaeye.health",
+              "time": "11:48",
+              "body": [
+                "I've spoken to a couple of people off the record. The mood in the ML team is anxious. Several junior members knew about Priya's concerns and saw what happened to her. They've drawn their own conclusions.",
+                "My recommendation: 1) Commission an independent review of Priya's concerns and our response. Not because I think we'll find anything different, but because it shows good faith if this ever becomes public. 2) Offer Priya a settlement with a non-disclosure agreement (an NDA — a legal contract that stops her from talking about what happened). I hate NDAs in these situations, but it's better than a tribunal. 3) Implement a proper whistleblowing policy that doesn't route concerns through the line manager of the person being complained about.",
+                "I'll draft the proposal for the board. I expect resistance, particularly from the point about the NDA. But we need to contain this before it becomes a story."
+              ]
+            },
+            {
+              "from": "Dr. Ellis, Clinical Risk",
+              "email": "ellis@vistaeye.health",
+              "time": "12:05",
+              "body": [
+                "I'll support the independent review recommendation. If the board asks for a clinical risk perspective, I'll say that a failure to address this openly undermines our safety culture and makes future incidents more likely.",
+                "On the NDA point — I share your discomfort. But I understand the practical necessity.",
+                "Keep me updated."
+              ]
+            }
+          ],
+          "concern": ""
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,6 @@
+Email Accounts — VistaEye Workshop
+====================================
+
+data_scientist   / retina123     — Clinical ML inbox
+data_engineer    / pipeline123   — Data pipeline inbox
+legal_and_ethics / fairview123   — Governance inbox
