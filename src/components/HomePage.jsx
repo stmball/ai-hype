@@ -38,7 +38,7 @@ function HomePage() {
   ];
 
   const team = [
-    { name: 'Prof. James Holloway', role: 'Chief Scientific Officer', bio: 'Former consultant ophthalmologist at Moorfields Eye Hospital. 20 years of clinical AI research.' },
+    { name: 'Prof. James Holloway', role: 'Chief Scientific Officer', bio: 'Former consultant ophthalmologist at Boorfields Eye Hospital. 20 years of clinical AI research.' },
     { name: 'Dr. Priya Nair', role: 'Clinical Director', bio: 'Clinical safety lead with a background in NHS digital transformation and patient safety regulation.' },
     { name: 'Tom Fletcher', role: 'VP of Product', bio: 'Brings medical device experience from previous roles at a leading healthtech company.' },
     { name: 'Maya Okonkwo', role: 'Head of Machine Learning', bio: 'PhD in computer vision. Previously led ML teams across multiple diagnostic imaging startups.' },
