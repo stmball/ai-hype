@@ -2,7 +2,7 @@ import React from 'react';
 
 function MailThreadList({ threads, activeThreadId, onSelect }) {
   return (
-    <section className="w-[380px] shrink-0 flex flex-col border-r border-gmail-border bg-white max-lg:w-[300px] max-sm:w-full max-sm:border-r-0">
+    <section className="flex-1 sm:w-[380px] sm:shrink-0 flex flex-col border-r border-gmail-border bg-white sm:max-lg:w-[300px]">
       <div className="flex items-center gap-2 px-3 py-[10px] border-b border-gmail-border shrink-0">
         <input type="checkbox" className="w-4 h-4 accent-gmail-blue cursor-pointer" readOnly />
         <span className="font-medium text-[0.88rem] text-gmail-muted">Inbox</span>
@@ -16,22 +16,26 @@ function MailThreadList({ threads, activeThreadId, onSelect }) {
           return (
             <button
               key={thread.id}
-              className={`flex items-center gap-2 w-full px-3 py-[6px] border-0 border-b border-[#f0f0f0] text-left cursor-pointer font-sans ${
+              className={`flex items-center gap-2 w-full px-3 py-[10px] border-0 border-b border-[#f0f0f0] text-left cursor-pointer font-sans sm:py-[6px] ${
                 activeThreadId === thread.id ? 'bg-gmail-active' : 'bg-transparent hover:bg-gmail-hover'
               }`}
               type="button"
               onClick={() => onSelect(thread.id)}
             >
               <div className="flex items-center gap-1 shrink-0">
-                <input type="checkbox" className="w-4 h-4 accent-gmail-blue cursor-pointer" readOnly onClick={(e) => e.stopPropagation()} />
+                <input type="checkbox" className="hidden sm:inline w-4 h-4 accent-gmail-blue cursor-pointer" readOnly onClick={(e) => e.stopPropagation()} />
                 <span className="text-[#dadce0] text-base hover:text-[#fcc934]">☆</span>
               </div>
-              <span className="w-[140px] shrink-0 font-semibold text-[0.88rem] text-gmail-text truncate max-lg:w-[100px]">{sender}</span>
-              <span className="flex-1 min-w-0 text-[0.88rem] text-gmail-text truncate">
-                {thread.subject}
-                <span className="text-gmail-muted font-normal"> — {thread.preview}</span>
-              </span>
-              <span className="shrink-0 text-[0.78rem] text-gmail-muted whitespace-nowrap">{first.time}</span>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="font-semibold text-[0.88rem] text-gmail-text truncate">{sender}</span>
+                  <span className="shrink-0 text-[0.78rem] text-gmail-muted whitespace-nowrap">{first.time}</span>
+                </div>
+                <span className="text-[0.88rem] text-gmail-text truncate block">
+                  {thread.subject}
+                  <span className="text-gmail-muted font-normal"> — {thread.preview}</span>
+                </span>
+              </div>
             </button>
           );
         })}
